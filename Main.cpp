@@ -67,9 +67,8 @@ void Sorts::counting() {
 }
 
 void Sorts::bucket() {
-   vector<int> help[siz];
    int index = 0;
-   int maximo = INT_MAX, minimo = INT_MIN, num;
+   int maximo = INT_MIN, minimo = INT_MAX, num;
 
    for(int i = 0; i < siz; i++ )
 	{
@@ -80,28 +79,20 @@ void Sorts::bucket() {
          minimo = input[i];
 	    }
 	}
-
-   int div = (int)ceil((maximo + 1.0)/siz);
-
-   for (int i=0; i<siz; i++)
-   {
-      index = (int) floor(input[i]/div);
-      help[index].push_back(input[i]);
+   int* help = new int[(maximo-minimo)+1];
+   //int div = (int)ceil((maximo + 1.0)/siz);
+   for(int i=0;i<((maximo-minimo)+1);i++){
+      help[i] = 0;
    }
 
-   for (int i=0; i<siz; i++){
-      if(help[i].size() != 0) {
-         sort(help[i].begin(), help[i].end());
+   for(int i = 0;i<siz;i++){
+      (help[input[i]-minimo])++;
+   }
+   int aux = 0;
+   for(int k = 0;k<((maximo-minimo)+1);k++) {
+      for(int j = 0;j<help[k];j++) {
+         input[aux++] = k + minimo;
       }
-   }
-
-   index = 0;
-   for (int i = 0; i < siz; i++) {
-
-         for (int j = 0; j < help[i].size(); j++) {
-            input[index++] = help[i][j];
-         }
-
    }
 }
 
